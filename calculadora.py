@@ -24,32 +24,13 @@ def alterar2(j):
             r = 2
         case 3: 
             r = 3
-    if clique > contagem:
-        clique = 0
-        match r:
-            case 0:
-                visor_numero.config(text=float(numero_antigo)*2)
-                numero_atual = str(float(numero_antigo)*2)
-            case 1:
-                visor_numero.config(text=float(0))
-                numero_atual = '0'
-            case 2:
-                visor_numero.config(text=float(numero_antigo)*float(numero_antigo))
-                numero_atual = float(numero_antigo)*float(numero_antigo)
-            case 3:
-                if numero_antigo != 0:
-                    visor_numero.config(text='1')
-                    numero_atual = '1'
-                else:
-                    visor_numero.config(text='Erro')
-                    numero_atual =''
-                    numero_antigo=''
-    else:
-        contagem = clique
+    numero_atual =''
+    if clique >= 1:
+        pass
+    else: 
         clique +=1
 def alterar3(i):
     global numero_atual, numero_antigo
-    numero_atual = ''
     numero_atual += str(numeros[i])
     visor_numero.config(text=numero_atual)
 
@@ -82,6 +63,14 @@ def resultar():
         numero_atual = ''
         numero_antigo = ''
 
+def apagar():
+    global numero_antigo, numero_atual
+    numero_atual = ''
+    numero_antigo =''
+    visor_numero.config(text='0')
+    for k in range(len(botoes_numeros)):
+        botoes_numeros[k].config(command = lambda k=k: alterar1(k))
+
 #Dividindo a janela em dois frames e as variáveis que vamos usar.
 visor = tk.Frame(janela_principal)
 visor.pack()
@@ -96,7 +85,6 @@ botoes_operadores = []
 numero_atual = ''
 numero_antigo = ''
 clique = 0
-contagem = 0
 #Criando os botões
 
 botao_zero = tk.Button(calculador, text= '0', command = lambda i=0: alterar1(0), width = 20, height =5)
@@ -127,6 +115,9 @@ botoes_operadores.append(botao_divisao)
 
 botao_igualdade = tk.Button(calculador,text='=',command = resultar, width = 20, height =5)
 botao_igualdade.grid(row=3, column=2)
+
+botao_C = tk.Button(calculador, text='C', command = apagar, width= 20, height =5 )
+botao_C.grid(row=3,column=0)
 
 #Definido os botões e as variáveis número atual e número antigo, faremos a lógica da calculadora.
 
